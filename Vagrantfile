@@ -23,5 +23,7 @@ Vagrant.configure("2") do |config|
     vb.cpus = "2"
   end
 
-  config.vm.network "public_network", bridge:"Wi-fi"
+  config.vm.network "public_network", bridge:"Wi-Fi"
+
+  config.vm.provision :shell, :path => "bootstrap.sh"
 end
