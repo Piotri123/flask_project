@@ -5,6 +5,7 @@ from flask import redirect
 from flask import url_for
 from flask import session
 from flask import g
+from flask import flash
 
 DATABASE = "/vagrant/blog.db"
 import sqlite3
@@ -66,13 +67,16 @@ def login_user():
     if username == flask_app.config["USERNAME"] and \
             password == flask_app.config["PASSWORD"]:
         session["logged"] = True
+        flash("Login successful", "alert-success")
         return redirect(url_for("view_admin"))
     else:
+        flash("Invalid credentials", "alert-danger")
         return redirect(url_for("view_login"))
 
 @flask_app.route("/logout/", methods=["POST"])
 def logout_user():
     session.pop("logged")
+    flash("Logout successful", "alert-success")
     return redirect(url_for("view_welcome_page"))
 
 ## UTILS
