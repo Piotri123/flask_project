@@ -18,11 +18,11 @@ depends_on = None
 
 def upgrade():
     op.create_table(
-        "users",
+        "user",
         sa.Column("id", sa.Integer, primary_key=True),
-        sa.Column("name", sa.String),
+        sa.Column("username", sa.String),
         sa.Column("password", sa.String))
 
 
 def downgrade():
-    op.drop_table("users")
+    op.drop_table("user")
