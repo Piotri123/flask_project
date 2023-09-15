@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import render_template
 
 from .models import db
 from .mod_main import main
@@ -6,7 +7,6 @@ from .mod_blog import blog
 from .mod_admin import admin
 
 import os
-
 
 flask_app = Flask(__name__)
 flask_app.config.from_pyfile("/vagrant/configs/default.py")
@@ -20,6 +20,13 @@ flask_app.register_blueprint(main)
 flask_app.register_blueprint(blog)
 flask_app.register_blueprint(admin)
 
+@flask_app.errorhandler(500)
+def internal_server_error(error):
+    return render_template("errors/500.jinja")
+
+@flask_app.errorhandler(404)
+def internal_server_error(error):
+    return render_template("errors/404.jinja")
 
 #region CLI COMMAND
 def init_db(app):
