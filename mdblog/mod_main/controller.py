@@ -21,7 +21,7 @@ def view_welcome_page():
 def view_about():
     return render_template("mod_main/about.jinja")
 
-@main.route("/newsletter/", methods=["GET", "POST"])
+@main.route("/newsletter/", methods=["POST"])
 def add_newsletter():
     newsletter_form = NewsletterForm(request.form)
     if newsletter_form.validate():
@@ -32,4 +32,4 @@ def add_newsletter():
     else:
         for error in newsletter_form.errors:
             flash("{} is not valid".format(error), "alert-danger")
-    return redirect("main.view_welcome_page")
+    return redirect(url_for("main.view_welcome_page"))
